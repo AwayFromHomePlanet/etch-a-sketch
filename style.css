@@ -1,0 +1,15 @@
+#grid {
+    width: 80vmin;
+    height: 80vmin;
+    display: grid;
+    grid-template-rows: repeat(16, 1fr);
+    grid-template-columns: repeat(16, 1fr);
+}
+
+.cell {
+    border: 1px solid black;
+}
+
+.coloured {
+    background: black;
+}
