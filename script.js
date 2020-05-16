@@ -1,3 +1,14 @@
+let currentColour = "black";
+
+const colours = document.getElementById("colours").children;
+for (let i = 0; i < colours.length; i++) {
+    colours[i].style.backgroundColor = colours[i].id;
+    
+    colours[i].onclick = () => {
+        currentColour = colours[i].id;
+    };
+}
+
 const grid = document.getElementById("grid");
 
 let cells;
@@ -22,9 +33,7 @@ function createBoard (size) {
     
     cells = document.querySelectorAll(".cell");
     cells.forEach((cell) => {
-        cell.addEventListener("mouseover", () => {
-            cell.classList.add("coloured");
-        });
+        cell.addEventListener("mouseover", paintCell);
     });
 }
 
@@ -36,8 +45,16 @@ function changeSize () {
 }
 
 function clearBoard () {
-    cells.forEach((cell) => {
-        cell.classList.remove("coloured");
-    });
+    cells.forEach(removeClasses);
 }
 
+function paintCell () {
+    removeClasses(this);
+    this.classList.add(currentColour);
+}
+
+function removeClasses (cell) {
+    for (let i = 0; i < colours.length; i++) {
+        cell.classList.remove(colours[i].id);
+    }
+}
