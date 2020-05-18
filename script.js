@@ -1,16 +1,23 @@
 let currentColour = "black";
-
-const colours = document.getElementById("colours").children;
-for (let i = 0; i < colours.length; i++) {
-    colours[i].style.backgroundColor = colours[i].id;
+let previousColour;
+const colours = document.querySelectorAll(".colour");
+colours.forEach((colour) => {
+    colour.style.backgroundColor = colour.id;
     
-    colours[i].onclick = () => {
-        currentColour = colours[i].id;
+    colour.onclick = () => {
+        previousColour = currentColour;
+        currentColour = colour.id;
+        
+        document.getElementById(previousColour).classList.remove("selected");
+        colour.classList.add("selected");
     };
-}
+});
+
+let isRandomOn = false;
+const random = document.getElementById("random");
+random.onclick = randomMode;
 
 const grid = document.getElementById("grid");
-
 let cells;
 
 const clear = document.getElementById("clear");
@@ -39,22 +46,31 @@ function createBoard (size) {
 
 function changeSize () {
     let size = prompt("How many pixels on each side? (1-64)");
-    if (size >= 1 && size <= 64 && Number.isInteger(+size)) createBoard(size);
+    if (size >= 1  &&  size <= 64  &&  Number.isInteger(+size)) {
+        createBoard(size);
+    }
     else if (size == null) return;
     else changeSize();
 }
 
 function clearBoard () {
-    cells.forEach(removeClasses);
+    cells.forEach((cell) => {
+        cell.style.backgroundColor = "white";
+    });
 }
 
 function paintCell () {
-    removeClasses(this);
-    this.classList.add(currentColour);
+    this.style.backgroundColor = isRandomOn ? randomColour() : currentColour;
 }
 
-function removeClasses (cell) {
+function randomMode () {
+    isRandomOn = !isRandomOn;
+    random.textContent = isRandomOn ? "Random mode: ON" : "Random mode: OFF";
     for (let i = 0; i < colours.length; i++) {
-        cell.classList.remove(colours[i].id);
+        colours[i].classList.toggle("invisible");
     }
 }
+
+randomColour = () => `rgb(${rand(256)}, ${rand(256)}, ${rand(256)})`;
+
+rand = num => Math.floor(Math.random() * num);

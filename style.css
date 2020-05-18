@@ -9,18 +9,24 @@
     border: 1px solid black;
 }
 
-#colours div {
+.colour {
     width: 30px;
     height: 20px;
     margin: 0 10px;
     display: inline-block;
+    cursor: pointer;
+} .colour:hover {
+    width: 26px;
+    height: 16px;
+    border: 2px solid black;
 }
 
-.black {background: black;}
-.red {background: red;}
-.orange {background: orange;}
-.yellow {background: yellow;}
-.green {background: green;}
-.blue {background: blue;}
-.purple {background: purple;}
+.invisible {
+    visibility: hidden;
+}
 
+.selected {
+    width: 24px;
+    height: 14px;
+    border: 3px solid black;
+}
