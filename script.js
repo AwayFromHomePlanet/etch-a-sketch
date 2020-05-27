@@ -1,8 +1,9 @@
-let currentColour = "black";
+let currentColour = "red";
 let previousColour;
+const colourContainer = document.getElementById("colours");
 const colours = document.querySelectorAll(".colour");
 colours.forEach((colour) => {
-    colour.style.backgroundColor = colour.id;
+    colour.style.backgroundColor = `var(--${colour.id})`;
     
     colour.onclick = () => {
         previousColour = currentColour;
@@ -13,24 +14,32 @@ colours.forEach((colour) => {
     };
 });
 
-let isRandomOn = false;
-const random = document.getElementById("random");
-random.onclick = randomMode;
+let currentHue = 0;
+
+let currentMode = "classic";
+const modes = document.querySelectorAll("input");
+modes.forEach((mode) => {
+    mode.onclick = () => {
+        currentMode = mode.id;
+        toggleColours();
+    };
+});
 
 const grid = document.getElementById("grid");
+
 let cells;
 
 const clear = document.getElementById("clear");
 clear.onclick = clearBoard;
 
-const newBoard = document.getElementById("new-board");
-newBoard.onclick = changeSize;
+const create = document.getElementById("create");
+create.onclick = changeSize;
 
-createBoard(16);
+createBoard(24);
 
 function createBoard (size) {
     grid.innerHTML = "";
-    grid.style.gridTemplateColumns = "repeat(" + size + ", 1fr)";
+    grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
     
     for (let i = 0; i < Math.pow(size, 2); i++) {
         let newCell = document.createElement("div");
@@ -40,7 +49,7 @@ function createBoard (size) {
     
     cells = document.querySelectorAll(".cell");
     cells.forEach((cell) => {
-        cell.addEventListener("mouseover", paintCell);
+        cell.addEventListener("mouseenter", paintCell);
     });
 }
 
@@ -56,21 +65,47 @@ function changeSize () {
 function clearBoard () {
     cells.forEach((cell) => {
         cell.style.backgroundColor = "white";
+        cell.innerHTML = "";
     });
 }
 
 function paintCell () {
-    this.style.backgroundColor = isRandomOn ? randomColour() : currentColour;
-}
+    switch (currentMode) {
+        case "classic":
+            this.innerHTML = "";
+            this.style.backgroundColor = `var(--${currentColour})`;
+            break;
+        
+        case "shading":
+            let layer = document.createElement("div");
+            layer.classList.add("layer");
+            layer.style.backgroundColor = `var(--${currentColour})`;
+            this.appendChild(layer);
+            break;
 
-function randomMode () {
-    isRandomOn = !isRandomOn;
-    random.textContent = isRandomOn ? "Random mode: ON" : "Random mode: OFF";
-    for (let i = 0; i < colours.length; i++) {
-        colours[i].classList.toggle("invisible");
+        case "random":
+            this.innerHTML = "";
+            this.style.backgroundColor = randomColour();
+            break;
+            
+        case "rainbow":
+            this.innerHTML = "";
+            this.style.backgroundColor = `hsl(${currentHue}, 100%, 60%)`;
+            //cycles through the greens and reds faster because there's too much
+            let x = currentHue % 360;
+            if (x > 90 && x < 150) currentHue += 3; //greens
+            else if (x < 20 || x > 340) currentHue += 2; //reds
+            else currentHue++;
     }
 }
 
 randomColour = () => `rgb(${rand(256)}, ${rand(256)}, ${rand(256)})`;
 
 rand = num => Math.floor(Math.random() * num);
+
+function toggleColours () {
+    if (currentMode == "classic" || currentMode == "shading") {
+        colourContainer.classList.remove("invisible");
+    }
+    else colourContainer.classList.add("invisible");
+}
