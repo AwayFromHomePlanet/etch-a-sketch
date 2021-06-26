@@ -5,30 +5,62 @@
         <link href="style.css" rel="stylesheet">
     </head>
     <body>
-        <div id="colours">
-            <div id="red" class="selected colour"></div>
-            <div id="orange" class="colour"></div>
-            <div id="yellow" class="colour"></div>
-            <div id="green" class="colour"></div>
-            <div id="teal" class="colour"></div>
-            <div id="indigo" class="colour"></div>
-            <div id="purple" class="colour"></div>
+        <h1>etch a sketch.</h1>
+        <div id="content">
+            <div id="controls">
+                <p id="colour-text">-- pick a colour to paint with --</p>
+                <div id="colours">
+                    <div class="row">
+                        <div id="light-red" class="selected colour"></div>
+                        <div id="light-orange" class="colour"></div>
+                        <div id="light-yellow" class="colour"></div>
+                        <div id="light-green" class="colour"></div>
+                        <div id="light-blue" class="colour"></div>
+                        <div id="light-indigo" class="colour"></div>
+                        <div id="light-violet" class="colour"></div>
+                    </div>
+                    <div class="row">
+                        <div id="red" class="colour"></div>
+                        <div id="orange" class="colour"></div>
+                        <div id="yellow" class="colour"></div>
+                        <div id="green" class="colour"></div>
+                        <div id="blue" class="colour"></div>
+                        <div id="indigo" class="colour"></div>
+                        <div id="violet" class="colour"></div>
+                    </div>
+                    <div class="row">
+                        <div id="dark-red" class="colour"></div>
+                        <div id="dark-orange" class="colour"></div>
+                        <div id="dark-yellow" class="colour"></div>
+                        <div id="dark-green" class="colour"></div>
+                        <div id="dark-blue" class="colour"></div>
+                        <div id="dark-indigo" class="colour"></div>
+                        <div id="dark-violet" class="colour"></div>
+                    </div>
+                </div>
+                <p>-- select a mode --</p>
+                <div id="modes">
+                    <div id="classic" class="pressed mode">classic</div>
+                    <div id="shading" class="mode">shading</div>
+                    <div id="rainbow" class="mode">rainbow</div>
+                    <div id="random" class="mode">random</div>
+                </div>
+                <div id="buttons">
+                    <div id="clear" class="button">clear</div>
+                    <div id="create" class="button">change board size</div>
+                </div>
+            </div>
+            
+            <div id="grid"></div>
         </div>
-        <div id="grid"></div>
-        <form>
-            <input type="radio" name="mode" id="classic" checked>
-            <label for="classic">Classic</label>
-            <input type="radio" name="mode" id="shading">
-            <label for="shading">Shading</label>
-            <input type="radio" name="mode" id="random">
-            <label for="random">Random</label>
-            <input type="radio" name="mode" id="rainbow">
-            <label for="rainbow">Rainbow</label>
-        </form>
-        <div id="buttons">
-            <button id="clear">Clear</button>
-            <button id="create">Create new board!</button>
-        </div>
+        <footer>
+            as part of a course from <a href="https://www.theodinproject.com">The Odin Project</a>
+            &nbsp&nbsp | &nbsp&nbsp
+            <a href="https://github.com/AwayFromHomePlanet/etch-a-sketch">source code</a>
+            &nbsp&nbsp | &nbsp&nbsp
+            github: <a href="https://github.com/AwayFromHomePlanet">AwayFromHomePlanet</a>
+            &nbsp&nbsp
+        </footer>
     </body>
     <script src="script.js"></script>
 </html>
